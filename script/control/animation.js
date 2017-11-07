@@ -90,17 +90,17 @@ function pick(objList, objParent, camera){
 		for(var i=0; i<3 ;i++){
 			if(tempBBD[i].replace(/\d+/g,"")!=="book") {
                 if (tempBBD[i])
-                    $("#q" + i).attr("src", "BaiBaoDie/" + tempBBD[i] + ".PNG");
+                    $("#q" + i).attr("src", "//you-chin-hsieh.github.io/Nobita_Room/BaiBaoDie/" + tempBBD[i] + ".png");
                 else
-                    $("#q" + i).attr("src", "BaiBaoDie/blank.PNG");
+                    $("#q" + i).attr("src", "//you-chin-hsieh.github.io/Nobita_Room/BaiBaoDie/blank.png");
             }
             else{
                 if (tempBBD[i]){
                     console.log(booksTypeArrays[tempBBD[i]])
-                    $("#q" + i).attr("src", "BaiBaoDie/" + booksTypeArrays[tempBBD[i]] + ".PNG");
+                    $("#q" + i).attr("src", "//you-chin-hsieh.github.io/Nobita_Room/BaiBaoDie/" + booksTypeArrays[tempBBD[i]] + ".png");
                 }
                 else
-                    $("#q" + i).attr("src", "BaiBaoDie/blank.PNG");
+                    $("#q" + i).attr("src", "//you-chin-hsieh.github.io/Nobita_Room/BaiBaoDie/blank.png");
 			}
 		}
 	}
@@ -184,9 +184,9 @@ function throwObj(objList, objParent, camera, scene){
 			console.log(tempBBD);
             if (tempBBD[i]){
                 if(tempBBD[i].replace(/\d+/g,"")!=="book")
-                    $("#q" + i).attr("src", "BaiBaoDie/" + tempBBD[i] + ".PNG");
+                    $("#q" + i).attr("src",  "//you-chin-hsieh.github.io/Nobita_Room/BaiBaoDie/" + tempBBD[i] + ".png");
                 else
-                    $("#q" + i).attr("src", "BaiBaoDie/" + booksTypeArrays[tempBBD[i]] + ".PNG");
+                    $("#q" + i).attr("src", "//you-chin-hsieh.github.io/Nobita_Room/BaiBaoDie/" + booksTypeArrays[tempBBD[i]] + ".png");
 			}
 			else {
                 $("#q" + i).attr("src", "BaiBaoDie/blank.PNG");
