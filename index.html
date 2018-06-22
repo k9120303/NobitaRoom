@@ -2,7 +2,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Babylon.js sample code</title>
+        <title>Nobita's Room</title>
+		<link rel="shortcut icon" href="icon/icon.png"/>
         <style>
             html, body {
                 overflow: hidden;
@@ -18,21 +19,21 @@
                 touch-action: none;
             }
 			.onHand{
-				position:absolute;
+				position:position:absolute;
 				float:right;
 				top:0px;right:0px;
 				width:150px;
 				height:150px;
 			}
 			.queue1{
-				position:absolute;
+				position:position:absolute;
 				float:right;
 				top:150px;right:0px;
 				width:100px;
 				height:100px;
 			}
 			.queue2{
-				position:absolute;
+				position:position:absolute;
 				float:right;
 				top:250px;right:0px;
 				width:100px;
@@ -50,7 +51,7 @@
         <canvas id="renderCanvas"></canvas>
     </div>
 	<div  id="BaiBaoDie" style = "position:absolute;top:0px;right:0px;">
-		<p>百寶袋</p>
+		<p style="color:white; background-color:black; border-radius:10px">百寶袋　</p>
 		<img id = "q0" src="BaiBaoDie/blank.PNG" class="onHand"/>
 		<br>
 		<img id = "q1" src="BaiBaoDie/blank.PNG"  class="queue1"/>
@@ -66,7 +67,7 @@
 	<script src="script/control/animation.js"></script>
     <script src="script/control/object.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="script/Physics/Plugins/babylon.oimoJSPlugin.js"></script>
+    <script src="script/Physics/Plugins/babylon.oimoJSPlugin.js"></script>
     <script>
         var booksArray = [];
         var bookCaseArray = []
@@ -107,19 +108,19 @@
             scene.enablePhysics(new BABYLON.Vector3(0, -10, 0), new BABYLON.OimoJSPlugin());
             // This targets the camera to scene origin
             camera.setTarget(BABYLON.Vector3.Zero());
-            var music = new BABYLON.Sound("Violons", "sounds/bgm.wav", scene,
+            var music = new BABYLON.Sound("Violons", "sounds/bgm.wav", scene,	//music
                 null, { loop: true, autoplay: true }
             );
             // This attaches the camera to the canvas
             camera.attachControl(canvas, true);
-			
-			initPointerLock(scene,camera);
 			
 			//設上下左右為w,a,s,d
 			camera.keysUp.push(87); // "w"
 			camera.keysRight.push(68);//d
 			camera.keysLeft.push(65);//a
 			camera.keysDown.push(83); // "s"
+			
+			initPointerLock(scene,camera);
 
             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(2, 2, 1), scene);
             light.groundColor = new BABYLON.Color3(1, 1, 1);
@@ -155,219 +156,206 @@
 			console.log(returnDatas["object"]);
 
 
-            returnDatas = loadObj(scene,"window","ItemModels/window/","window.obj",{x:40,y:0,z:60},{x:0.8,y:0.5,z:0.8},{x:0,y:Math.PI/100,z:0});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"window","ItemModels/window/","window.obj",{x:40,y:0,z:60},{x:0.8,y:0.5,z:0.8},{x:0,y:Math.PI/100,z:0})
+            scene = returnDatas["scene"]
             others.push(returnDatas["object"]);
-			/*
-            returnDatas = loadObj(scene,"bookcase","ItemModels/bookcase/","bookcase.obj",{x:-38,y:-32,z:-56},{x:0.6,y:0.6,z:0.6},{x:0,y:Math.PI/1.9,z:-Math.PI/68}) //大書櫃
-            scene = returnDatas["scene"]
-
-            returnDatas = loadObj(scene,"bookcase2","ItemModels/bookcase2/","bookcase2.obj",{x:-47,y:-25,z:65.5},{x:0.3,y:0.3,z:0.3},{x:0,y:Math.PI/1.9,z:-Math.PI/68}) //藍色小櫃子
-            scene = returnDatas["scene"]
-
-            returnDatas = loadObj(scene,"droplight","ItemModels/droplight/","droplight.obj",{x:17,y:45,z:-15},{x:0.35,y:0.35,z:0.35},{x:0,y:Math.PI/1.95,z:-Math.PI/68}) //吊燈
-            scene = returnDatas["scene"]
-
-            returnDatas = loadObj(scene,"book","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","Book.obj",{x:-38,y:-9,z:-56},{x:0.5,y:0.5,z:0.5},{x:0,y:Math.PI/1.95,z:-Math.PI/68})
-            scene = returnDatas["scene"]
-			*/
 
             var roofTop = createSingleRect(scene,"RoofTop",{x:10,y:70,z:10},{x:20,y:0.6,z:20},{x:-Math.PI/45,y:Math.PI/60,z:Math.PI},"ItemModels/room/roofTop.jpeg",{u:5.0,v:5.0}).box;
             createSingleRect(scene,"door",{x:96,y:5,z:-17},{x:7,y:8,z:0.01},{x:-Math.PI  ,y:-Math.PI/2 + Math.PI/34 + Math.PI/4444 ,z:Math.PI- Math.PI/100 - Math.PI/44 + Math.PI/100},"ItemModels/room/door.jpg",{u:1.0,v:1.0})
 
-            returnDatas = loadObj(scene,"chair","ItemModels/chair/","chair.obj",{x:70,y:-20,z:20},{x:0.5,y:0.5,z:0.5},{x:0,y:Math.PI/100,z:0}) ; //椅子
-            scene = returnDatas["scene"];
-            chair = returnDatas["object"];
+            returnDatas = loadObj(scene,"chair","ItemModels/chair/","chair.obj",{x:70,y:-20,z:20},{x:0.5,y:0.5,z:0.5},{x:0,y:Math.PI/100,z:0})  //椅子
+            scene = returnDatas["scene"]
+            chair = returnDatas["object"]
 			origin.push({scaleX:0.5,scaleY:0.5,scaleZ:0.5,posX:70,posY:-20,posZ:20});
-            returnDatas = loadObj(scene,"lamp","ItemModels/lamp/lamp/","lamp.obj",{x:45,y:0,z:40},{x:0.2,y:0.2,z:0.2},{x:0,y:Math.PI/1.5,z:0}); //檯燈
-            scene = returnDatas["scene"];
-            lamp = returnDatas["object"];
+            returnDatas = loadObj(scene,"lamp","ItemModels/lamp/lamp/","lamp.obj",{x:45,y:0,z:40},{x:0.2,y:0.2,z:0.2},{x:0,y:Math.PI/1.5,z:0}) //檯燈
+            scene = returnDatas["scene"]
+            lamp = returnDatas["object"]
 			origin.push({scaleX:0.2,scaleY:0.2,scaleZ:0.2,posX:45,posY:0,posZ:40});
             
-			returnDatas = loadObj(scene,"desk","ItemModels/desk/desk/","desk.obj",{x:64,y:-32.5,z:40},{x:0.35,y:0.35,z:0.35},{x:0,y:-Math.PI/2,z:0}); //書桌
-            scene = returnDatas["scene"];
-            desk = returnDatas["object"];
+			returnDatas = loadObj(scene,"desk","ItemModels/desk/desk/","desk.obj",{x:64,y:-32.5,z:40},{x:0.35,y:0.35,z:0.35},{x:0,y:-Math.PI/2,z:0}) //書桌
+            scene = returnDatas["scene"]
+            desk = returnDatas["object"]
 			origin.push({scaleX:0.35,scaleY:0.35,scaleZ:0.35,posX:64,posY:-32.5,posZ:40});
 
-            returnDatas = loadObj(scene,"bookcase","ItemModels/bookcase/","bookcase.obj",{x:-34,y:-32,z:-55},{x:0.65,y:0.69,z:0.65},{x:0,y:Math.PI/1.9,z:-Math.PI/68}); //大書櫃
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"bookcase","ItemModels/bookcase/","bookcase.obj",{x:-34,y:-32,z:-55},{x:0.65,y:0.69,z:0.65},{x:0,y:Math.PI/1.9,z:-Math.PI/68}) //大書櫃
+            scene = returnDatas["scene"]
             bookCaseArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"bookcase2","ItemModels/bookcase2/","bookcase2.obj",{x:-40,y:-25,z:62},{x:0.4,y:0.4,z:0.4},{x:0,y:Math.PI/1.9,z:-Math.PI/68}); //藍色小櫃子
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"bookcase2","ItemModels/bookcase2/","bookcase2.obj",{x:-40,y:-25,z:62},{x:0.4,y:0.4,z:0.4},{x:0,y:Math.PI/1.9,z:-Math.PI/68}) //藍色小櫃子
+            scene = returnDatas["scene"]
             bookCaseArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"droplight","ItemModels/droplight/","droplight.obj",{x:17,y:45,z:-15},{x:0.35,y:0.35,z:0.35},{x:0,y:Math.PI/1.95,z:-Math.PI/68}); //吊燈
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"droplight","ItemModels/droplight/","droplight.obj",{x:17,y:45,z:-15},{x:0.35,y:0.35,z:0.35},{x:0,y:Math.PI/1.95,z:-Math.PI/68}) //吊燈
+            scene = returnDatas["scene"]
             bookCaseArray.push(returnDatas["object"]);
             //書櫃第一層
 
-            returnDatas = loadObj(scene,"book1","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","RedBook.obj",{x:-38.2,y:-10.9,z:-64.8},{x:0.7,y:0.82,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book1","ItemModels/book/","Redbook.obj",{x:-38.2,y:-10.9,z:-64.8},{x:0.7,y:0.82,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"book2","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-37.9,y:-10.7,z:-59.2},{x:1,y:0.82,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book2","ItemModels/book/","Bluebook.obj",{x:-37.9,y:-10.7,z:-59.2},{x:1,y:0.82,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"book3","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","GreenBook.obj",{x:-37.8,y:-10.6,z:-57.1},{x:1,y:0.82,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book3","ItemModels/book/","Greenbook.obj",{x:-37.8,y:-10.6,z:-57.1},{x:1,y:0.82,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"book19","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-37.7,y:-10.5,z:-55},{x:1,y:0.82,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book19","ItemModels/book/","Bluebook.obj",{x:-37.7,y:-10.5,z:-55},{x:1,y:0.82,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"book4","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","YellowBook.obj",{x:-37.6,y:-10.4,z:-52.9},{x:1,y:0.8,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book4","ItemModels/book/","Yellowbook.obj",{x:-37.6,y:-10.4,z:-52.9},{x:1,y:0.8,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"book5","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-37.5,y:-10.3,z:-50.8},{x:1,y:0.79,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book5","ItemModels/book/","Bluebook.obj",{x:-37.5,y:-10.3,z:-50.8},{x:1,y:0.79,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"book6","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","RedBook.obj",{x:-37.4,y:-10.2,z:-48.7},{x:1,y:0.77,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book6","ItemModels/book/","Redbook.obj",{x:-37.4,y:-10.2,z:-48.7},{x:1,y:0.77,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"book7","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-37.3,y:-10.1,z:-46.6},{x:1,y:0.78,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book7","ItemModels/book/","Bluebook.obj",{x:-37.3,y:-10.1,z:-46.6},{x:1,y:0.78,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"book8","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","GreenBook.obj",{x:-37.2,y:-10,z:-44.5},{x:1,y:0.79,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book8","ItemModels/book/","Greenbook.obj",{x:-37.2,y:-10,z:-44.5},{x:1,y:0.79,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"book9","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","RedBook.obj",{x:-37.1,y:-9.9,z:-42.4},{x:1,y:0.78,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book9","ItemModels/book/","Redbook.obj",{x:-37.1,y:-9.9,z:-42.4},{x:1,y:0.78,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"book10","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","OrangeBook.obj",{x:-37,y:-9.8,z:-40.3},{x:1,y:0.8,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book10","ItemModels/book/","Orangebook.obj",{x:-37,y:-9.8,z:-40.3},{x:1,y:0.8,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"book11","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-36.9,y:-9.7,z:-38.2},{x:1,y:0.75,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book11","ItemModels/book/","Bluebook.obj",{x:-36.9,y:-9.7,z:-38.2},{x:1,y:0.75,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"book12","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-36.8,y:-9.6,z:-36.1},{x:1,y:0.69,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book12","ItemModels/book/","Bluebook.obj",{x:-36.8,y:-9.6,z:-36.1},{x:1,y:0.69,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"book13","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-36.7,y:-9.5,z:-34},{x:1,y:0.7,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book13","ItemModels/book/","Bluebook.obj",{x:-36.7,y:-9.5,z:-34},{x:1,y:0.7,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"book14","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-36.6,y:-9.4,z:-31.9},{x:1,y:0.69,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book14","ItemModels/book/","Bluebook.obj",{x:-36.6,y:-9.4,z:-31.9},{x:1,y:0.69,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"book15","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","OrangeBook.obj",{x:-36.5,y:-9.3,z:-29.8},{x:1,y:0.69,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book15","ItemModels/book/","Orangebook.obj",{x:-36.5,y:-9.3,z:-29.8},{x:1,y:0.69,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"book16","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","YellowBook.obj",{x:-36.4,y:-9.2,z:-27.7},{x:1,y:0.75,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book16","ItemModels/book/","Yellowbook.obj",{x:-36.4,y:-9.2,z:-27.7},{x:1,y:0.75,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"book17","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-36.3,y:-9.1,z:-25.6},{x:1,y:0.73,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book17","ItemModels/book/","Bluebook.obj",{x:-36.3,y:-9.1,z:-25.6},{x:1,y:0.73,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"book18","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-36.2,y:-9,z:-23.5},{x:1,y:0.75,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"book18","ItemModels/book/","Bluebook.obj",{x:-36.2,y:-9,z:-23.5},{x:1,y:0.75,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
 
             //書櫃第二層
 
-            returnDatas = loadObj(scene,"2book1","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-38,y:7.8,z:-61.5},{x:1,y:0.73,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"2book1","ItemModels/book/","Bluebook.obj",{x:-38,y:7.8,z:-61.5},{x:1,y:0.73,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"2book2","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-37.9,y:7.9,z:-59.2},{x:1,y:0.72,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"2book2","ItemModels/book/","Bluebook.obj",{x:-37.9,y:7.9,z:-59.2},{x:1,y:0.72,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"2book3","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","GreenBook.obj",{x:-37.8,y:8,z:-57.1},{x:1,y:0.73,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"2book3","ItemModels/book/","Greenbook.obj",{x:-37.8,y:8,z:-57.1},{x:1,y:0.73,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"2book13","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","OrangeBook.obj",{x:-37.7,y:8.1,z:-55},{x:1,y:0.74,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"2book13","ItemModels/book/","Orangebook.obj",{x:-37.7,y:8.1,z:-55},{x:1,y:0.74,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"2book4","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","OrangeBook.obj",{x:-37.6,y:8.2,z:-52.9},{x:1,y:0.72,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"2book4","ItemModels/book/","Orangebook.obj",{x:-37.6,y:8.2,z:-52.9},{x:1,y:0.72,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"2book5","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","GreenBook.obj",{x:-37.5,y:8.3,z:-50.8},{x:1,y:0.7,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"2book5","ItemModels/book/","Greenbook.obj",{x:-37.5,y:8.3,z:-50.8},{x:1,y:0.7,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"2book6","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","RedBook.obj",{x:-37.4,y:8.4,z:-48.7},{x:1,y:0.69,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"2book6","ItemModels/book/","Redbook.obj",{x:-37.4,y:8.4,z:-48.7},{x:1,y:0.69,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"2book7","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-37.3,y:8.5,z:-46.6},{x:1,y:0.69,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"2book7","ItemModels/book/","Bluebook.obj",{x:-37.3,y:8.5,z:-46.6},{x:1,y:0.69,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"2book8","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","GreenBook.obj",{x:-37.2,y:8.6,z:-44.5},{x:1,y:0.69,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"2book8","ItemModels/book/","Greenbook.obj",{x:-37.2,y:8.6,z:-44.5},{x:1,y:0.69,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"2book9","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","RedBook.obj",{x:-37.1,y:8.7,z:-42.4},{x:1,y:0.72,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"2book9","ItemModels/book/","Redbook.obj",{x:-37.1,y:8.7,z:-42.4},{x:1,y:0.72,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"2book10","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-37,y:8.8,z:-40.3},{x:1,y:0.71,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"2book10","ItemModels/book/","Bluebook.obj",{x:-37,y:8.8,z:-40.3},{x:1,y:0.71,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"2book11","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-36.9,y:8.9,z:-38.2},{x:1,y:0.72,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"2book11","ItemModels/book/","Bluebook.obj",{x:-36.9,y:8.9,z:-38.2},{x:1,y:0.72,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"2book12","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","YellowBook.obj",{x:-36.8,y:9,z:-36.1},{x:1,y:0.72,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"2book12","ItemModels/book/","Yellowbook.obj",{x:-36.8,y:9,z:-36.1},{x:1,y:0.72,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
 
 
 
             //書櫃第三層
 
-            scene = returnDatas["scene"];
-            returnDatas = loadObj(scene,"3book4","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","OrangeBook.obj",{x:-36.6,y:22.9,z:-52.9},{x:1,y:0.7,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            scene = returnDatas["scene"]
+            returnDatas = loadObj(scene,"3book4","ItemModels/book/","Orangebook.obj",{x:-36.6,y:22.9,z:-52.9},{x:1,y:0.7,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"3book5","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","OrangeBook.obj",{x:-36.5,y:23,z:-50.8},{x:1,y:0.72,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"3book5","ItemModels/book/","Orangebook.obj",{x:-36.5,y:23,z:-50.8},{x:1,y:0.72,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"3book6","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","GreenBook.obj",{x:-36.4,y:23.1,z:-48.7},{x:1,y:0.71,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"3book6","ItemModels/book/","Greenbook.obj",{x:-36.4,y:23.1,z:-48.7},{x:1,y:0.71,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"3book7","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-36.3,y:23.2,z:-46.6},{x:1,y:0.69,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"3book7","ItemModels/book/","Bluebook.obj",{x:-36.3,y:23.2,z:-46.6},{x:1,y:0.69,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"3book8","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","GreenBook.obj",{x:-36.2,y:23.3,z:-44.5},{x:1,y:0.68,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"3book8","ItemModels/book/","Greenbook.obj",{x:-36.2,y:23.3,z:-44.5},{x:1,y:0.68,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"3book9","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","GreenBook.obj",{x:-36.1,y:23.4,z:-42.4},{x:1,y:0.68,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"3book9","ItemModels/book/","Greenbook.obj",{x:-36.1,y:23.4,z:-42.4},{x:1,y:0.68,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"3book10","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","RedBook.obj",{x:-36,y:23.5,z:-40.3},{x:1,y:0.68,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"3book10","ItemModels/book/","Redbook.obj",{x:-36,y:23.5,z:-40.3},{x:1,y:0.68,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"3book11","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","YellowBook.obj",{x:-35.9,y:23.6,z:-38.2},{x:1,y:0.68,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"3book11","ItemModels/book/","Yellowbook.obj",{x:-35.9,y:23.6,z:-38.2},{x:1,y:0.68,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"3book12","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-35.8,y:23.7,z:-36.1},{x:1,y:0.69,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"3book12","ItemModels/book/","Bluebook.obj",{x:-35.8,y:23.7,z:-36.1},{x:1,y:0.69,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"3book13","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","GreenBook.obj",{x:-35.7,y:23.8,z:-34},{x:1,y:0.7,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"3book13","ItemModels/book/","Greenbook.obj",{x:-35.7,y:23.8,z:-34},{x:1,y:0.7,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"3book14","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-35.6,y:23.9,z:-31.9},{x:1,y:0.67,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"3book14","ItemModels/book/","Bluebook.obj",{x:-35.6,y:23.9,z:-31.9},{x:1,y:0.67,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"3book15","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-35.5,y:24,z:-29.8},{x:1,y:0.67,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"3book15","ItemModels/book/","Bluebook.obj",{x:-35.5,y:24,z:-29.8},{x:1,y:0.67,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"3book16","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","BlueBook.obj",{x:-35.4,y:24.1,z:-27.7},{x:1,y:0.67,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"3book16","ItemModels/book/","Bluebook.obj",{x:-35.4,y:24.1,z:-27.7},{x:1,y:0.67,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"3book17","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","RedBook.obj",{x:-35.3,y:24.2,z:-25.6},{x:1,y:0.70,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"3book17","ItemModels/book/","Redbook.obj",{x:-35.3,y:24.2,z:-25.6},{x:1,y:0.70,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"3book18","//you-chin-hsieh.github.io/Nobita_Room/ItemModels/book/","RedBook.obj",{x:-35.2,y:24.3,z:-23.5},{x:1,y:0.71,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"3book18","ItemModels/book/","Redbook.obj",{x:-35.2,y:24.3,z:-23.5},{x:1,y:0.71,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
 
             booksArray.push(returnDatas["object"]);
             //-------------------------很臭的code ---------------------------------------------------------
-            returnDatas = loadObj(scene,"penguin1","ItemModels/penguin/","Penguin.obj",{x:-36.8,y:9,z:-40.1},{x:0.1,y:0.1,z:0.1},{x:0,y:0,z:-Math.PI/68});
+            returnDatas = loadObj(scene,"penguin1","ItemModels/penguin/","Penguin.obj",{x:-36.8,y:9,z:-40.1},{x:0.1,y:0.1,z:0.1},{x:0,y:0,z:-Math.PI/68})
+            scene = returnDatas["scene"]
+            others.push(returnDatas["object"]);
+            returnDatas = loadObj(scene,"penguin2","ItemModels/penguin/","Penguin.obj",{x:72,y:2,z:50},{x:0.1,y:0.1,z:0.1},{x:0,y:0,z:-Math.PI/68})
             scene = returnDatas["scene"];
             others.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"penguin2","ItemModels/penguin/","Penguin.obj",{x:72,y:2,z:50},{x:0.1,y:0.1,z:0.1},{x:0,y:0,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"penguin3","ItemModels/penguin/","Penguin.obj",{x:-42,y:3.5,z:63},{x:0.1,y:0.1,z:0.1},{x:0,y:-Math.PI/1.9,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             others.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"penguin3","ItemModels/penguin/","Penguin.obj",{x:-42,y:3.5,z:63},{x:0.1,y:0.1,z:0.1},{x:0,y:-Math.PI/1.9,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"tank","ItemModels/tank/","tank.obj",{x:66,y:2,z:50},{x:0.1,y:0.1,z:0.1},{x:-Math.PI/90,y:0,z:-Math.PI/68})
+            scene = returnDatas["scene"]
             others.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"tank","ItemModels/tank/","tank.obj",{x:66,y:2,z:50},{x:0.1,y:0.1,z:0.1},{x:-Math.PI/90,y:0,z:-Math.PI/68});
-            scene = returnDatas["scene"];
+            returnDatas = loadObj(scene,"tank2","ItemModels/tank/","tank.obj",{x:-36.6,y:22.9,z:-72},{x:0.1,y:0.1,z:0.1},{x:Math.PI/90,y:-Math.PI/2.1,z:-Math.PI/90})
+            scene = returnDatas["scene"]
             others.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"tank2","ItemModels/tank/","tank.obj",{x:-36.6,y:22.9,z:-72},{x:0.1,y:0.1,z:0.1},{x:Math.PI/90,y:-Math.PI/2.1,z:-Math.PI/90});
-            scene = returnDatas["scene"];
-            others.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"cup","ItemModels/cup/","cup.obj",{x:91,y:2,z:26},{x:0.1,y:0.1,z:0.1},{x:-Math.PI/90,y:0,z:0});
+            returnDatas = loadObj(scene,"cup","ItemModels/cup/","cup.obj",{x:91,y:2,z:26},{x:0.1,y:0.1,z:0.1},{x:-Math.PI/90,y:0,z:0})
             scene = returnDatas["scene"];
             others.push(returnDatas["object"]);
             returnDatas = loadObj(scene,"clock","ItemModels/clock/","clock.obj",{x:17,y:25,z:-82},{x:0.6,y:0.6,z:0.6},{x:Math.PI/2.1,y:-Math.PI/2.1,z:-Math.PI/1.98});
@@ -392,9 +380,9 @@
 
 
             //console.log(booksArray)
-            createSingleRect(scene,"bath",{x:40,y:20,z:61},{x:4,y:0.1,z:5},{x:Math.PI/300,y:Math.PI/2,z:Math.PI/2},"ItemModels/bath.jpg",{u:1.0,v:1.0});
-            createSingleRect(scene,"RoofTop",{x:10,y:70,z:10},{x:20,y:0.6,z:20},{x:-Math.PI/45,y:Math.PI/60,z:Math.PI},"ItemModels/room/roofTop.jpeg",{u:5.0,v:5.0});
-            createSingleRect(scene,"door",{x:96,y:5,z:-17},{x:7,y:8,z:0.01},{x:-Math.PI  ,y:-Math.PI/2 + Math.PI/34 + Math.PI/4444 ,z:Math.PI- Math.PI/100 - Math.PI/44 + Math.PI/100},"ItemModels/room/door.jpg",{u:1.0,v:1.0});
+            createSingleRect(scene,"bath",{x:40,y:20,z:61},{x:4,y:0.1,z:5},{x:Math.PI/300,y:Math.PI/2,z:Math.PI/2},"ItemModels/bath.jpg",{u:1.0,v:1.0})
+            createSingleRect(scene,"RoofTop",{x:10,y:70,z:10},{x:20,y:0.6,z:20},{x:-Math.PI/45,y:Math.PI/60,z:Math.PI},"ItemModels/room/roofTop.jpeg",{u:5.0,v:5.0})
+            createSingleRect(scene,"door",{x:96,y:5,z:-17},{x:7,y:8,z:0.01},{x:-Math.PI  ,y:-Math.PI/2 + Math.PI/34 + Math.PI/4444 ,z:Math.PI- Math.PI/100 - Math.PI/44 + Math.PI/100},"ItemModels/room/door.jpg",{u:1.0,v:1.0})
             var floor = createSingleRect(scene,"floor",{x:10,y:-31,z:-20},{x:50,y:0.05,z:60},{x:-Math.PI/60,y:Math.PI/60,z:-Math.PI/150},"ItemModels/floor.png",{u:5.0,v:5.0}).box;
             floor.physicsImpostor = new BABYLON.PhysicsImpostor(floor, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 0.9 }, scene);
             console.log("fuck");
@@ -464,21 +452,21 @@
         }
         var booksData = {};
 		function loadObj(scene,objname,objPath,obj,position,size,angle){ //position is { x: x , y: y  ,z:z}
-            if(obj === "RedBook.obj"){
+            if(obj === "Redbook.obj"){
 
                 booksData[objname] = "Redbook";
                 //RedBook.push(objname);
             }
-            else if(obj === "BlueBook.obj"){
+            else if(obj === "Bluebook.obj"){
                 booksData[objname] = "Bluebook";
             }
-            else if(obj === "OrangeBook.obj"){
+            else if(obj === "Orangebook.obj"){
                 booksData[objname] = "Orangebook";
             }
-            else if(obj==="YellowBook.obj"){
+            else if(obj==="Yellowbook.obj"){
                 booksData[objname] = "Yellowbook";
             }
-            else if(obj==="GreenBook.obj"){
+            else if(obj==="Greenbook.obj"){
                 booksData[objname] = "Greenbook";
             }
 			var loader = new BABYLON.AssetsManager(scene);
@@ -520,38 +508,24 @@
 
 		//讓螢幕跟著滑鼠移動
 		function  initPointerLock(scene,camera) {
-
-            var controlEnabled = (
-            document.mozPointerLockElement === canvas
-            || document.webkitPointerLockElement === canvas
-            || document.msPointerLockElement === canvas
-            || document.pointerLockElement === canvas);
 		
 			// Request pointer lock
+			var canvas = scene.getEngine().getRenderingCanvas();
 			// On click event, request pointer lock
 			canvas.addEventListener("click", function(evt) {
 				canvas.requestPointerLock = canvas.requestPointerLock || canvas.msRequestPointerLock || canvas.mozRequestPointerLock || canvas.webkitRequestPointerLock;
 				if (canvas.requestPointerLock) {
 					canvas.requestPointerLock();
 				}
-                if (! controlEnabled) {
-                    switch (evt.button) {
-                        case 0://left click
-                            objParent = pick(objList, objParent, camera);
-                            break;
-                        case 1://center click
-                            break;
-                        case 2://right click
-                            objParent = throwObj(objList, objParent, camera, scene);
-                            break;
-                        default:
-                            break;
-                    }
-                }
 			}, false);
 
 			// Event listener when the pointerlock is updated (or removed by pressing ESC for example).
 			var pointerlockchange = function (event) {
+				var controlEnabled = (
+								   document.mozPointerLockElement === canvas
+								|| document.webkitPointerLockElement === canvas
+								|| document.msPointerLockElement === canvas
+								|| document.pointerLockElement === canvas);
 				// If the user is alreday locked
 				if (! controlEnabled) {
 					//camera.detachControl(canvas);
@@ -730,9 +704,24 @@
 		    }	
 		}, false);
 		
+		window.addEventListener("click", function(e){
+			 if (inScreen) {
+                    switch (e.button) {
+                        case 0://left click
+                            objParent = pick(objList, objParent, camera);
+                            break;
+                        case 1://center click
+                            break;
+                        case 2://right click
+                            objParent = throwObj(objList, objParent, camera, scene);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+		}, false);
+		
 		
     </script>
-    </div>
-    </div>
 </body>
 </html>
