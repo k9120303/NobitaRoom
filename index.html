@@ -50,14 +50,14 @@
     <div id="canvasZone">
         <canvas id="renderCanvas"></canvas>
     </div>
-	<div  id="BaiBaoDie" style = "position:absolute;top:0px;right:0px;">
+	<div  id="BaiBaoDie" style = "position:absolute;top:0px;right:10px;">
 		<p style="color:white; background-color:black; border-radius:10px">百寶袋　</p>
 		<img id = "q0" src="BaiBaoDie/blank.PNG" class="onHand"/>
 		<br>
 		<img id = "q1" src="BaiBaoDie/blank.PNG"  class="queue1"/>
 		<br>
 		<img id = "q2" src="BaiBaoDie/blank.PNG"  class="queue2"/>
-	<div>
+	</div>
     <script src="script/babylon.js/babylon.3.0.alpha.js"></script>
 	<script src="script/babylon.js/hand.minified-1.2.js"></script>
 	<script src="script/babylon.js/oimo.js"></script>
@@ -80,7 +80,6 @@
 
 		// This creates and positions a free camera (non-mesh)
         var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 10, -10), scene);
-		//var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 10, new BABYLON.Vector3(100, 5, -100), scene);
 		
 		var inScreen = false;
 		
@@ -121,30 +120,71 @@
 			camera.keysDown.push(83); // "s"
 			
 			initPointerLock(scene,camera);
-
-            var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(2, 2, 1), scene);
+			
+            var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(1, -2, 0), scene);
             light.groundColor = new BABYLON.Color3(1, 1, 1);
             light.intensity = 0.5;
 			
-			/*
-			//黑色材質
-			var black = new BABYLON.StandardMaterial('black', scene);
-			black.diffuseColor = new BABYLON.Color3(0, 0, 0);
-			
-			var green = new BABYLON.StandardMaterial('green', scene);
-			green.diffuseColor = new BABYLON.Color3(0, 1, 0);
-			green.emissiveColor = BABYLON.Color3.Green();
-			*/
 			
 			var leftGroup = createLeftHand(camera, scene);
 			//var rightGroup = createRightHand(camera, scene);
 			var aim = createAim(camera, scene);
 			aim.isPickable = false;	
 			var aim2 = createAim2(camera, scene);
-			aim2.isPickable = false;	
+			aim2.isPickable = false;
 			
 			
-			//--------------------------------------
+			//-------------------------Shader---------------------------------------
+			BABYLON.Effect.ShadersStore["customVertexShader"]= "\r\n"+   
+			"precision highp float;\r\n"+
+
+			//Attributes
+			"attribute vec3 position;\r\n"+
+			"attribute vec2 uv;\r\n"+
+
+			//Uniforms
+			"uniform mat4 worldViewProjection;\r\n"+
+
+			//Varying
+			"varying vec2 vUV;\r\n"+
+
+			"void main(void) {\r\n"+
+			"gl_Position = worldViewProjection * vec4(position, 1.0);\r\n"+
+			"vUV = uv;\r\n"+
+			"}\r\n";
+
+			
+			BABYLON.Effect.ShadersStore["customFragmentShader"]="\r\n"+
+		    "precision highp float;\r\n"+
+
+			"varying vec2 vUV;\r\n"+
+
+			"uniform sampler2D textureSampler;\r\n"+
+
+			"void main(void) {\r\n"+
+			"gl_FragColor = texture2D(textureSampler, vUV);\r\n"+
+			"}\r\n";
+
+
+			var shaderMaterial = new BABYLON.ShaderMaterial("shader", scene, {
+			vertex: "custom",
+			fragment: "custom",
+			},
+			{
+				attributes: ["position", "normal", "uv"],
+				uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
+			});
+
+
+			var mainTexture = new BABYLON.Texture("ItemModels/cube.jpg", scene);
+			shaderMaterial.setTexture("textureSampler", mainTexture);
+			shaderMaterial.backFaceCulling = false;
+
+			var box = BABYLON.MeshBuilder.CreateBox("box", {}, scene);
+			box.material = shaderMaterial;
+			
+			
+			//-------------------------------------裝潢區---------------------------------------
 			
 			var loader = new BABYLON.AssetsManager(scene);
 
@@ -186,8 +226,9 @@
             returnDatas = loadObj(scene,"droplight","ItemModels/droplight/","droplight.obj",{x:17,y:45,z:-15},{x:0.35,y:0.35,z:0.35},{x:0,y:Math.PI/1.95,z:-Math.PI/68}) //吊燈
             scene = returnDatas["scene"]
             bookCaseArray.push(returnDatas["object"]);
+			
+			
             //書櫃第一層
-
             returnDatas = loadObj(scene,"book1","ItemModels/book/","Redbook.obj",{x:-38.2,y:-10.9,z:-64.8},{x:0.7,y:0.82,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
             scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
@@ -246,8 +287,8 @@
             scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
 
+			
             //書櫃第二層
-
             returnDatas = loadObj(scene,"2book1","ItemModels/book/","Bluebook.obj",{x:-38,y:7.8,z:-61.5},{x:1,y:0.73,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
             scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
@@ -289,9 +330,7 @@
             booksArray.push(returnDatas["object"]);
 
 
-
             //書櫃第三層
-
             scene = returnDatas["scene"]
             returnDatas = loadObj(scene,"3book4","ItemModels/book/","Orangebook.obj",{x:-36.6,y:22.9,z:-52.9},{x:1,y:0.7,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
             scene = returnDatas["scene"]
@@ -339,44 +378,30 @@
             scene = returnDatas["scene"]
 
             booksArray.push(returnDatas["object"]);
-            //-------------------------很臭的code ---------------------------------------------------------
+			
+			
+            //-------------------------小東西們---------------------------------------------------------
             returnDatas = loadObj(scene,"penguin1","ItemModels/penguin/","Penguin.obj",{x:-36.8,y:9,z:-40.1},{x:0.1,y:0.1,z:0.1},{x:0,y:0,z:-Math.PI/68})
             scene = returnDatas["scene"]
             others.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"penguin2","ItemModels/penguin/","Penguin.obj",{x:72,y:2,z:50},{x:0.1,y:0.1,z:0.1},{x:0,y:0,z:-Math.PI/68})
+            returnDatas = loadObj(scene,"penguin2","ItemModels/penguin/","Penguin.obj",{x:72,y:0.2,z:50},{x:0.1,y:0.1,z:0.1},{x:0,y:0,z:-Math.PI/68})
             scene = returnDatas["scene"];
             others.push(returnDatas["object"]);
             returnDatas = loadObj(scene,"penguin3","ItemModels/penguin/","Penguin.obj",{x:-42,y:3.5,z:63},{x:0.1,y:0.1,z:0.1},{x:0,y:-Math.PI/1.9,z:-Math.PI/68})
             scene = returnDatas["scene"]
             others.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"tank","ItemModels/tank/","tank.obj",{x:66,y:2,z:50},{x:0.1,y:0.1,z:0.1},{x:-Math.PI/90,y:0,z:-Math.PI/68})
+            returnDatas = loadObj(scene,"tank","ItemModels/tank/","tank.obj",{x:66,y:0.2,z:50},{x:0.1,y:0.1,z:0.1},{x:-Math.PI/90,y:0,z:-Math.PI/68})
             scene = returnDatas["scene"]
             others.push(returnDatas["object"]);
             returnDatas = loadObj(scene,"tank2","ItemModels/tank/","tank.obj",{x:-36.6,y:22.9,z:-72},{x:0.1,y:0.1,z:0.1},{x:Math.PI/90,y:-Math.PI/2.1,z:-Math.PI/90})
             scene = returnDatas["scene"]
             others.push(returnDatas["object"]);
-            returnDatas = loadObj(scene,"cup","ItemModels/cup/","cup.obj",{x:91,y:2,z:26},{x:0.1,y:0.1,z:0.1},{x:-Math.PI/90,y:0,z:0})
+            returnDatas = loadObj(scene,"cup","ItemModels/cup/","cup.obj",{x:91,y:0.2,z:26},{x:0.1,y:0.1,z:0.1},{x:-Math.PI/90,y:0,z:0})
             scene = returnDatas["scene"];
             others.push(returnDatas["object"]);
             returnDatas = loadObj(scene,"clock","ItemModels/clock/","clock.obj",{x:17,y:25,z:-82},{x:0.6,y:0.6,z:0.6},{x:Math.PI/2.1,y:-Math.PI/2.1,z:-Math.PI/1.98});
             scene = returnDatas["scene"];
             others.push(returnDatas["object"]);
-            /*
-                for(var i=0;i<booksArray.length;i++){
-                    console.log("Now is "+i);
-                    console.log(booksArray[i])
-                    //origin.push({scaleX:0.35,scaleY:0.35,scaleZ:0.35,posX:64,posY:-32.5,posZ:40});
-                    var tempScaling = booksArray[i].loadedMeshes[0].scaling;
-                    var tempPosition = booksArray[i].loadedMeshes[0].position;
-                    origin.push({
-                        scaleX: tempScaling.x,
-                        scaleY: tempScaling.y,
-                        scaleZ: tempScaling.z,
-                        posX: tempPosition.x,
-                        posY: tempPosition.y,
-                        posZ: tempPosition.z
-                    })
-                }*/
 
 
             //console.log(booksArray)
@@ -388,11 +413,11 @@
             console.log("fuck");
             console.log(floor);
             //scene.enablePhysics();
-            // Our built-in 'sphere' shape. Params: name, subdivs, size, scene
+            //Our built-in 'sphere' shape. Params: name, subdivs, size, scene
             var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
             console.log("bookArray");
             console.log(booksArray)
-            // Move the sphere upward 1/2 its height
+            //Move the sphere upward 1/2 its height
             sphere.position.y = 2;
             var meshesColliderList = [];
 
@@ -704,15 +729,22 @@
 		    }	
 		}, false);
 		
+		
+		var pickSound = new BABYLON.Sound("pickSound", "sounds/doraemon.wav", scene);
+		var throwSound = new BABYLON.Sound("throwSound", "sounds/bon.wav", scene);
+		
+		
 		window.addEventListener("click", function(e){
 			 if (inScreen) {
                     switch (e.button) {
                         case 0://left click
+							pickSound.play();
                             objParent = pick(objList, objParent, camera);
                             break;
                         case 1://center click
                             break;
                         case 2://right click
+							throwSound.play();
                             objParent = throwObj(objList, objParent, camera, scene);
                             break;
                         default:
