@@ -50,7 +50,7 @@
     <div id="canvasZone">
         <canvas id="renderCanvas"></canvas>
     </div>
-	<div  id="BaiBaoDie" style = "position:absolute;top:0px;right:10px;">
+	<div  id="BaiBaoDie" style = "position:absolute;top:0px;right:5px;">
 		<p style="color:white; background-color:black; border-radius:10px">百寶袋　</p>
 		<img id = "q0" src="BaiBaoDie/blank.PNG" class="onHand"/>
 		<br>
@@ -182,6 +182,12 @@
 
 			var box = BABYLON.MeshBuilder.CreateBox("box", {}, scene);
 			box.material = shaderMaterial;
+			box.scaling.x = 5;
+			box.scaling.y = 5;
+			box.scaling.z = 5;
+			box.position.x = -40;
+			box.position.y = -8;
+			box.position.z = 60;
 			
 			
 			//-------------------------------------裝潢區---------------------------------------
@@ -331,7 +337,6 @@
 
 
             //書櫃第三層
-            scene = returnDatas["scene"]
             returnDatas = loadObj(scene,"3book4","ItemModels/book/","Orangebook.obj",{x:-36.6,y:22.9,z:-52.9},{x:1,y:0.7,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
             scene = returnDatas["scene"]
             booksArray.push(returnDatas["object"]);
@@ -376,11 +381,31 @@
             booksArray.push(returnDatas["object"]);
             returnDatas = loadObj(scene,"3book18","ItemModels/book/","Redbook.obj",{x:-35.2,y:24.3,z:-23.5},{x:1,y:0.71,z:1},{x:0,y:Math.PI/1.9,z:-Math.PI/68})
             scene = returnDatas["scene"]
-
             booksArray.push(returnDatas["object"]);
 			
 			
-            //-------------------------小東西們---------------------------------------------------------
+			//書桌上的書  莫名其妙會爆掉???
+			returnDatas = loadObj(scene,"RedBook","ItemModels/book/","RedBook.obj",{x:100,y:0,z:50},{x:1,y:1,z:1},{x:0,y:Math.PI,z:0})
+			scene = returnDatas["scene"]
+			booksArray.push(returnDatas["object"]);
+			returnDatas = loadObj(scene,"GreenBook","ItemModels/book/","GreenBook.obj",{x:98,y:0,z:50},{x:1,y:0.8,z:1},{x:0,y:Math.PI,z:0})
+			scene = returnDatas["scene"]
+			booksArray.push(returnDatas["object"]);
+			returnDatas = loadObj(scene,"BlueBook","ItemModels/book/","BlueBook.obj",{x:102,y:0,z:50},{x:1,y:0.9,z:1},{x:0,y:Math.PI,z:0})
+			scene = returnDatas["scene"]
+			booksArray.push(returnDatas["object"]);
+			returnDatas = loadObj(scene,"RedBook2","ItemModels/book/","RedBook.obj",{x:106,y:0,z:50},{x:1,y:1,z:1},{x:0,y:Math.PI,z:0})
+			scene = returnDatas["scene"]
+			booksArray.push(returnDatas["object"]);
+			returnDatas = loadObj(scene,"GreenBook2","ItemModels/book/","GreenBook.obj",{x:104,y:0,z:50},{x:1,y:0.8,z:1},{x:0,y:Math.PI,z:0})
+			scene = returnDatas["scene"]
+			booksArray.push(returnDatas["object"]);
+			returnDatas = loadObj(scene,"BlueBook2","ItemModels/book/","BlueBook.obj",{x:108,y:0,z:50},{x:1,y:0.9,z:1},{x:0,y:Math.PI,z:0})
+			scene = returnDatas["scene"]
+			booksArray.push(returnDatas["object"]);
+			
+			
+            //小東西們
             returnDatas = loadObj(scene,"penguin1","ItemModels/penguin/","Penguin.obj",{x:-36.8,y:9,z:-40.1},{x:0.1,y:0.1,z:0.1},{x:0,y:0,z:-Math.PI/68})
             scene = returnDatas["scene"]
             others.push(returnDatas["object"]);
@@ -478,9 +503,7 @@
         var booksData = {};
 		function loadObj(scene,objname,objPath,obj,position,size,angle){ //position is { x: x , y: y  ,z:z}
             if(obj === "Redbook.obj"){
-
                 booksData[objname] = "Redbook";
-                //RedBook.push(objname);
             }
             else if(obj === "Bluebook.obj"){
                 booksData[objname] = "Bluebook";
@@ -505,7 +528,7 @@
 					m.scaling.y = size.y;
 					m.scaling.z = size.z;
 					m.rotation.x = angle.x;
-					m.rotation.y =angle.y;
+					m.rotation.y = angle.y;
 					m.rotation.z = angle.z;
 					m.checkCollisions = true; //加入碰撞，不可穿越
 					m.name = objname;
@@ -525,7 +548,7 @@
 		function finishLoad(){
 		    console.log(counter);
 			counter++;
-			if(counter >= 62) {
+			if(counter >= 68) {
 			setParent(objList,objParent);
 			console.log("start");
 			}
@@ -639,7 +662,6 @@
                 objList.push(bookCaseArray[i]);
             }
 			for(var i=0;i<booksArray.length;i++){
-
 			    objList.push(booksArray[i])
             }
             for(var i=0;i<others.length;i++){
